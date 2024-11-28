@@ -32,7 +32,7 @@ jobs:
           echo $(wrangler kv namespace list)
           LIST_OUTPUT=$(wrangler kv namespace list)
           echo "$LIST_OUTPUT"
-          KV_NAMESPACE_ID=$(echo "$LIST_OUTPUT" | jq -r '.[] | select(.title == "cf-workers-status-page-KV_STATUS_PAGE") | .id')
+          KV_NAMESPACE_ID=$(wrangler kv namespace list | jq -r '.[] | select(.title == "cf-workers-status-page-KV_STATUS_PAGE") | .id')
           echo "$KV_NAMESPACE_ID"
           echo "[env.production]" >> wrangler.toml
           echo "kv_namespaces = [{binding=\"KV_STATUS_PAGE\", id=\"${KV_NAMESPACE_ID}\"}]" >> wrangler.toml
