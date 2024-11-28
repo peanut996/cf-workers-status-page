@@ -29,6 +29,7 @@ jobs:
         preCommands: |
           yarn add wrangler@latest
           wrangler kv:namespace create KV_STATUS_PAGE || true
+          echo $(yarn wrangler kv:namespace list)
           KV_NAMESPACE_ID=$(yarn wrangler kv:namespace list | grep KV_STATUS_PAGE -A1 | grep id | cut -d'"' -f4)
           echo "kv namespace id: ${KV_NAMESPACE_ID}"
           echo "[env.production]" >> wrangler.toml
